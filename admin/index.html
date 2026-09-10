@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel | Mahmud Abbas Rahat</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+<!-- LOGIN VIEW -->
+<section id="loginView" class="admin-auth">
+  <div class="admin-auth-card">
+    <span class="brand-mark">MAR</span>
+    <h1>Admin Login</h1>
+    <p class="admin-auth-sub">Sign in with your Supabase admin account.</p>
+
+    <form id="loginForm" novalidate>
+      <div class="form-row">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" required autocomplete="username">
+      </div>
+      <div class="form-row">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password">
+      </div>
+      <p class="admin-error" id="loginError" role="alert"></p>
+      <button type="submit" class="btn btn-primary btn-block" id="loginSubmit">Log In</button>
+    </form>
+
+    <a href="../index.html" class="admin-back-link">&larr; Back to site</a>
+  </div>
+</section>
+
+<!-- APP (DASHBOARD + FORM) -->
+<div id="appView" class="admin-app" hidden>
+
+  <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <span class="brand-mark">MAR</span>
+      <span>Admin Panel</span>
+    </div>
+    <nav class="admin-nav">
+      <button class="admin-nav-btn active" data-view="dashboardView" type="button">Dashboard</button>
+      <button class="admin-nav-btn" data-view="formView" id="addProjectNavBtn" type="button">+ Add Project</button>
+    </nav>
+    <div class="admin-sidebar-footer">
+      <span id="adminEmail" class="admin-user-email"></span>
+      <button id="logoutBtn" class="btn btn-ghost btn-block" type="button">Logout</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+
+    <!-- DASHBOARD -->
+    <section id="dashboardView" class="admin-view">
+      <div class="admin-view-head">
+        <h1>Dashboard</h1>
+        <button class="btn btn-primary" id="addProjectBtn" type="button">+ Add New Project</button>
+      </div>
+
+      <div class="admin-stats" id="adminStats">
+        <!-- populated by admin.js -->
+      </div>
+
+      <h2 class="admin-subhead">All Projects</h2>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Sector</th>
+              <th>Category</th>
+              <th>Order</th>
+              <th>Featured</th>
+              <th>Published</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody">
+            <!-- populated by admin.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ADD / EDIT PROJECT FORM -->
+    <section id="formView" class="admin-view" hidden>
+      <div class="admin-view-head">
+        <h1 id="formHeading">Add New Project</h1>
+        <button class="btn btn-ghost" id="cancelFormBtn" type="button">Cancel</button>
+      </div>
+
+      <form id="projectForm" class="admin-form" novalidate>
+        <input type="hidden" id="projectId">
+
+        <fieldset class="admin-fieldset">
+          <legend>Basic Information</legend>
+
+          <div class="admin-form-grid">
+            <div class="form-row">
+              <label for="title">Project Title *</label>
+              <input type="text" id="title" required>
+            </div>
+            <div class="form-row">
+              <label for="slug">Slug *</label>
+              <input type="text" id="slug" required placeholder="auto-generated-from-title">
+            </div>
+            <div class="form-row">
+              <label for="sector">Sector *</label>
+              <select id="sector" required>
+                <option value="">Select a sector</option>
+                <option value="digital-marketing">Digital Marketing</option>
+                <option value="seo">SEO</option>
+                <option value="graphic-design">Graphic Design</option>
+                <option value="website-design">Website Design</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="category">Category *</label>
+              <input type="text" id="category" required placeholder="e.g. On-Page SEO, Logo Design">
+            </div>
+            <div class="form-row">
+              <label for="client">Client</label>
+              <input type="text" id="client">
+            </div>
+            <div class="form-row">
+              <label for="website">Website</label>
+              <input type="url" id="website" placeholder="https://">
+            </div>
+            <div class="form-row">
+              <label for="industry">Industry</label>
+              <input type="text" id="industry">
+            </div>
+            <div class="form-row">
+              <label for="duration">Project Duration</label>
+              <input type="text" id="duration" placeholder="e.g. 3 weeks">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="shortDescription">Short Description *</label>
+            <textarea id="shortDescription" rows="2" required></textarea>
+          </div>
+          <div class="form-row">
+            <label for="description">Full Description</label>
+            <textarea id="description" rows="4"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="admin-fieldset">
+          <legend>Project Content</legend>
+          <div class="form-row">
+            <label for="role">My Role</label>
+            <input type="text" id="role">
+          </div>
+          <div class="form-row">
+            <label for="problem">Problem</label>
+            <textarea id="problem" rows="3" placeholder="Leave blank if not applicable"></textarea>
+          </div>
+          <div class="form-row">
+            <label for="strategy">Strategy</label>
+            <textarea id="strategy" rows="3" placeholder="Leave blank if not applicable"></textarea>
+          </div>
+          <div class="form-row">
+            <label for="workDone">Work Done</label>
+            <textarea id="workDone" rows="3" placeholder="Leave blank if not applicable"></textarea>
+          </div>
+          <div class="form-row">
+            <label for="result">Final Result</label>
+            <textarea id="result" rows="3" placeholder="Only describe real, actual outcomes"></textarea>
+          </div>
+          <div class="admin-form-grid">
+            <div class="form-row">
+              <label for="tools">Tools Used <span>(comma-separated)</span></label>
+              <input type="text" id="tools" placeholder="Adobe Illustrator, Canva">
+            </div>
+            <div class="form-row">
+              <label for="services">Services <span>(comma-separated)</span></label>
+              <input type="text" id="services" placeholder="Logo Design, Brand Guidelines">
+            </div>
+            <div class="form-row">
+              <label for="tags">Tags <span>(comma-separated, used for filtering)</span></label>
+              <input type="text" id="tags" placeholder="Branding, Print">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- SECTOR-SPECIFIC FIELDS — shown based on selected Sector -->
+        <fieldset class="admin-fieldset">
+          <legend>Sector-Specific Details</legend>
+          <p class="admin-hint">Leave any field blank if the data doesn't exist yet — the site will show "Data not added yet" instead of a fake number.</p>
+          <div id="metricsFields" class="admin-form-grid"><!-- populated by admin.js based on sector --></div>
+        </fieldset>
+
+        <fieldset class="admin-fieldset">
+          <legend>Media</legend>
+
+          <div class="form-row">
+            <label for="mainImageFile">Main Project Image *</label>
+            <input type="file" id="mainImageFile" accept="image/*">
+            <div class="admin-image-preview" id="mainImagePreview"></div>
+          </div>
+
+          <div class="form-row">
+            <label for="galleryFiles">Gallery Images <span>(you can select multiple)</span></label>
+            <input type="file" id="galleryFiles" accept="image/*" multiple>
+            <div class="admin-image-preview admin-image-preview-grid" id="galleryPreview"></div>
+          </div>
+
+          <div class="admin-form-grid">
+            <div class="form-row">
+              <label for="beforeImageFile">Before Image</label>
+              <input type="file" id="beforeImageFile" accept="image/*">
+              <div class="admin-image-preview" id="beforeImagePreview"></div>
+            </div>
+            <div class="form-row">
+              <label for="afterImageFile">After Image</label>
+              <input type="file" id="afterImageFile" accept="image/*">
+              <div class="admin-image-preview" id="afterImagePreview"></div>
+            </div>
+          </div>
+          <p class="admin-hint" id="uploadStatus"></p>
+        </fieldset>
+
+        <fieldset class="admin-fieldset">
+          <legend>Status</legend>
+          <div class="admin-toggle-row">
+            <label class="admin-switch">
+              <input type="checkbox" id="featured">
+              <span></span> Featured (shown on homepage)
+            </label>
+            <label class="admin-switch">
+              <input type="checkbox" id="published">
+              <span></span> Published (visible to the public)
+            </label>
+          </div>
+          <div class="form-row">
+            <label for="sortOrder">Sort Order <span>(lower numbers show first)</span></label>
+            <input type="number" id="sortOrder" value="0">
+          </div>
+        </fieldset>
+
+        <fieldset class="admin-fieldset">
+          <legend>SEO Metadata</legend>
+          <div class="form-row">
+            <label for="seoTitle">SEO Title</label>
+            <input type="text" id="seoTitle">
+          </div>
+          <div class="form-row">
+            <label for="metaDescription">Meta Description</label>
+            <textarea id="metaDescription" rows="2"></textarea>
+          </div>
+          <div class="form-row">
+            <label for="altText">Main Image Alt Text</label>
+            <input type="text" id="altText">
+          </div>
+        </fieldset>
+
+        <p class="admin-error" id="formError" role="alert"></p>
+        <div class="admin-form-actions">
+          <button type="submit" class="btn btn-primary" id="saveProjectBtn">Save Project</button>
+          <button type="button" class="btn btn-ghost" id="cancelFormBtn2">Cancel</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+</div>
+
+<div id="toast" class="admin-toast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../js/supabase-config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
