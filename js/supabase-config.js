@@ -17,6 +17,6 @@
    file in this project, or in your GitHub repository.
 ========================================================= */
 window.SUPABASE_CONFIG = {
-  url: "https://scsawrxzdcytqmlosffq.supabase.co/rest/v1/",
+  url: "https://scsawrxzdcytqmlosffq.supabase.co",
   anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjc2F3cnh6ZGN5dHFtbG9zZmZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzEzODksImV4cCI6MjEwNDUwNzM4OX0.y7S9MgMsjPl9-9B0O7emglfdxhvBoIJXk-vPXICjcDk"
 };
